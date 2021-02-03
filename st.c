@@ -486,7 +486,6 @@ int historyBufferScroll(int n) {
 }
 
 int historyMove(int x, int y, int ly) {
-    printf("%d %d\n", histOff, insertOff);
 	historyOpToggle(1, 1);
 	y += ((term.c.x += x) < 0 ?term.c.x-term.col :term.c.x) / term.col;//< x
     y=MIN(insertOff - histOff + term.row - term.c.y - 1, MAX(y, -term.c.y-histOff));
@@ -495,7 +494,7 @@ int historyMove(int x, int y, int ly) {
 	if ((term.c.y += y) >= term.row) ly += term.c.y - term.row + 1;    //< y
 	else if (term.c.y < 0) ly += term.c.y;
 	term.c.y = MIN(MAX(term.c.y, 0), term.row - 1);
-    printf("%d %d\n", y, ly);
+    ly = MAX(ly, -histOff);
 	int off=insertOff-histOff, bot=rangeY(off), top=-rangeY(-term.row-off),
 	    pTop = (-ly>-top), pBot = (ly > bot), fin=histMode&&(pTop||pBot);
 	if (fin && (x||y)) term.c.x = pBot ? term.col-1 : 0;
