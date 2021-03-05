@@ -20,7 +20,7 @@ struct NormalModeState {
 	} m;
 } defaultNormalMode, state;
 DynamicArray searchStr=UTF8_ARRAY, cCmd=UTF8_ARRAY, lCmd=UTF8_ARRAY;
-char posBuffer[15], brack[6][2] = { {"()"}, {"<>"}, {"{}"}, {"[]"}, {"\"\""}, {"''"}};
+char posBuffer[15] =  "               ", brack[6][2] = { {"()"}, {"<>"}, {"{}"}, {"[]"}, {"\"\""}, {"''"}};
 int exited=1, overlay=1;
 static inline uint32_t cchar() { return term.line[term.c.y][term.c.x].u; }
 static inline int pos(int p, int h) {return IS_SET(MODE_ALTSCREEN)?p:rangeY(p+h*histOff-insertOff);}
@@ -257,7 +257,7 @@ ExitState kpressHist(char const *cs, int len, int ctrl, KeySym const *ksym) {
     int total =  insertOff + term.row;
     char buf[15];
 	int n = sprintf(buf, "%d%% %d/%d", lines * 100 /  total, lines, total);
-    memset(posBuffer, 0, 15);
+    memset(posBuffer, ' ', 15);
     memcpy(posBuffer+15-n, buf, n);
 
 	if ((overlay || overlay!=prevOverlay) && term.col>9 && term.row>4) {
@@ -282,7 +282,7 @@ void historyOverlay(int x, int y, Glyph* g) {
     } else if (highlighted(x, y)) {
         if(x==cHist->x && y ==cHist->y) g->bg = defaultfg, g->fg = defaultbg;
         else g->bg = highlightBg, g->fg = highlightFg;
-    } 
+    }
 	else if ((x==cHist->x) ^ (y==cHist->y)) g->bg = currentBg;
 	else if (x==cHist->x) g->mode^=ATTR_REVERSE;
 }
