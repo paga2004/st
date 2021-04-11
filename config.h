@@ -159,17 +159,6 @@ unsigned int defaultbg = 8;
 static unsigned int defaultcs = 14;
 static unsigned int defaultrcs = 15;
 
-unsigned int const currentBg = 8, buffSize = 4096;
-/// [Vim Browse] Colors for search results currently on screen.
-unsigned int const highlightBg = 3, highlightFg = 8;
-char const wDelS[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~", wDelL[] = " \t";
-char *nmKeys[] = {
-    ///< Shortcusts executed in normal mode
-};
-unsigned int const amountNmKeys = sizeof(nmKeys) / sizeof(*nmKeys);
-/// Style of the {command, search} string shown in the right corner (y,v,V,/)
-Glyph styleSearch = {' ', ATTR_ITALIC | ATTR_BOLD_FAINT, 12, 8};
-Glyph styleCmd = {' ', ATTR_ITALIC, 12, 8};
 /*
  * Default shape of cursor
  * 2: Block ("█")
@@ -211,12 +200,12 @@ static uint forcemousemod = ShiftMask;
  * Beware that overloading Button1 will disable the selection.
  */
 static MouseShortcut mshortcuts[] = {
-    /* mask                 button   function        argument       release */
-    {XK_ANY_MOD, Button2, selpaste, {.i = 0}, 1},
-    {ShiftMask, Button4, ttysend, {.s = "\033[5;2~"}},
-    {XK_ANY_MOD, Button4, ttysend, {.s = "\031"}},
-    {ShiftMask, Button5, ttysend, {.s = "\033[6;2~"}},
-    {XK_ANY_MOD, Button5, ttysend, {.s = "\005"}},
+	/* mask                 button   function        argument       release */
+	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
+	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
+	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
+	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
 
 /* Internal keyboard shortcuts. */
@@ -224,25 +213,24 @@ static MouseShortcut mshortcuts[] = {
 #define TERMMOD (ControlMask | ShiftMask)
 
 static Shortcut shortcuts[] = {
-    /* mask                 keysym          function        argument */
-    {XK_ANY_MOD, XK_Break, sendbreak, {.i = 0}},
-    {ControlMask, XK_Print, toggleprinter, {.i = 0}},
-    {ShiftMask, XK_Print, printscreen, {.i = 0}},
-    {XK_ANY_MOD, XK_Print, printsel, {.i = 0}},
-    {TERMMOD, XK_Prior, zoom, {.f = +1}},
-    {TERMMOD, XK_Next, zoom, {.f = -1}},
-    {TERMMOD, XK_Up, zoom, {.f = +1}},
-    {TERMMOD, XK_Down, zoom, {.f = -1}},
-    {TERMMOD, XK_K, zoom, {.f = +1}},
-    {TERMMOD, XK_J, zoom, {.f = -1}},
-    {TERMMOD, XK_Home, zoomreset, {.f = 0}},
-    {TERMMOD, XK_C, clipcopy, {.i = 0}},
-    {TERMMOD, XK_V, clippaste, {.i = 0}},
-    {TERMMOD, XK_Y, selpaste, {.i = 0}},
-    {ShiftMask, XK_Insert, selpaste, {.i = 0}},
-    {TERMMOD, XK_Num_Lock, numlock, {.i = 0}},
-    {TERMMOD, XK_F6, swapcolors, {.i = 0}},
-    {MODKEY, XK_c, normalMode, {.i = 0}},
+	/* mask                 keysym          function        argument */
+	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
+	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
+	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
+	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
+	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
+	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
+    { TERMMOD,              XK_Up,          zoom,           {.f = +1} },
+    { TERMMOD,              XK_Down,        zoom,           {.f = -1} },
+    { TERMMOD,              XK_K,           zoom,           {.f = +1} },
+    { TERMMOD,              XK_J,           zoom,           {.f = -1} },
+	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
+	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ XK_ANY_MOD,           XK_F6,          swapcolors,     {.i =  0} },
 };
 
 /*
