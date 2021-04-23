@@ -306,6 +306,8 @@ swapcolors(const Arg *dummy)
 {
  usealtcolors = !usealtcolors;
  xloadcols();
+ // FIXME: I have no idea what this does and it propably does too much work but it fixes a bug.
+ cresize(win.w, win.h);
  redraw();
 }
 
